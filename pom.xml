@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.2.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.chun</groupId>
+    <artifactId>generate</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>generate-common</module>
+        <module>generate-api</module>
+        <module>generate-autoconfigure</module>
+        <module>generate-ui</module>
+        <module>generate-springboot-start</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <generate.version>0.0.1-SNAPSHOT</generate.version>
+        <mysql.version>5.1.38</mysql.version>
+        <freemarker.version>2.3.28</freemarker.version>
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <druid.version>1.1.13</druid.version>
+        <swagger.version>2.9.2</swagger.version>
+        <knife4j.version>2.0.4</knife4j.version>
+        <pagehelper.spring.boot.version>1.2.5</pagehelper.spring.boot.version>
+        <lombok.version>1.18.4</lombok.version>
+        <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
+        <hutool.version>4.6.1</hutool.version>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.chun</groupId>
+                <artifactId>generate-common</artifactId>
+                <version>${generate.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.chun</groupId>
+                <artifactId>generate-api</artifactId>
+                <version>${generate.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.chun</groupId>
+                <artifactId>generate-autoconfigure</artifactId>
+                <version>${generate.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.chun</groupId>
+                <artifactId>generate-ui</artifactId>
+                <version>${generate.version}</version>
+            </dependency>
+
+            <!-- mysql -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!-- swagger 增强 -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- mapstruct -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+
+            <!-- Free Maker -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+
+            <!-- hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
