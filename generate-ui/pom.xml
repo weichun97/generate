@@ -13,6 +13,10 @@
     <artifactId>generate-ui</artifactId>
     <version>1.0.0</version>
 
+    <name>generate-ui</name>
+    <description>ui module</description>
+    <url>https://github.com/weichun97/generate</url>
+
     <build>
         <resources>
             <resource>

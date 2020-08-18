@@ -11,7 +11,8 @@
     <artifactId>generate-common</artifactId>
     <version>1.0.0</version>
     <name>generate-common</name>
-    <description>Demo project for Spring Boot</description>
+    <description>common module</description>
+    <url>https://github.com/weichun97/generate</url>
 
     <properties>
         <java.version>1.8</java.version>

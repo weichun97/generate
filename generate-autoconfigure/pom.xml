@@ -12,7 +12,8 @@
     <artifactId>generate-autoconfigure</artifactId>
     <version>1.0.0</version>
     <name>generate-autoconfigure</name>
-    <description>Demo project for Spring Boot</description>
+    <description>autoconfigure module</description>
+    <url>https://github.com/weichun97/generate</url>
 
     <properties>
         <java.version>1.8</java.version>

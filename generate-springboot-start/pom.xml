@@ -13,6 +13,10 @@
     <artifactId>generate-springboot-start</artifactId>
     <version>1.0.0</version>
 
+    <name>generate-springboot-start</name>
+    <description>springboot-start module</description>
+    <url>https://github.com/weichun97/generate</url>
+
     <dependencies>
         <dependency>
             <groupId>com.github.weichun97</groupId>
