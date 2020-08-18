@@ -4,23 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>generate</artifactId>
-        <groupId>com.chun</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <groupId>com.github.weichun97</groupId>
+        <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>generate-springboot-start</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
-            <groupId>com.chun</groupId>
+            <groupId>com.github.weichun97</groupId>
             <artifactId>generate-autoconfigure</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.chun</groupId>
+            <groupId>com.github.weichun97</groupId>
             <artifactId>generate-ui</artifactId>
         </dependency>
     </dependencies>

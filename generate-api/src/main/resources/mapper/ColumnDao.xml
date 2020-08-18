@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.chun.generate.api.pojo.dao.ColumnDao">
+<mapper namespace="com.github.weichun97.generate.api.pojo.dao.ColumnDao">
 
-    <select id="getByTableNames" resultType="com.chun.generate.api.pojo.entity.ColumnEntity">
+    <select id="getByTableNames" resultType="com.github.weichun97.generate.api.pojo.entity.ColumnEntity">
         select TABLE_NAME, COLUMN_NAME, DATA_TYPE, COLUMN_COMMENT from information_schema.COLUMNS
         where TABLE_SCHEMA = (select database())
         and TABLE_NAME in 
