@@ -66,6 +66,9 @@ public class GenerateServiceImpl implements GenerateService {
         // 代码生成
         tableInfos.forEach(tableInfo -> {
             generateReqVO.getTypes().forEach(type -> {
+                if(GenarateFactory.get(generateProperties.getTemplateMap().get(type).getType()) == null){
+                    throw new RuntimeException("未定义的生成器类型["+ generateProperties.getTemplateMap().get(type).getType() +"]");
+                }
                 // 生成
                 GenerateProperties.Template template = generateProperties.getTemplateMap().get(type);
                 GenarateFactory.get(template.getType()).generate(tableInfo, template, generateReqVO.getModule());
@@ -76,6 +79,7 @@ public class GenerateServiceImpl implements GenerateService {
                         GenarateFactory.get(v.getType()).generate(tableInfo, v, generateReqVO.getModule());
                     });
                 }
+                GenarateFactory.get(generateProperties.getTemplateMap().get(type).getType()).generate(tableInfo, type);
             });
         });
     }
