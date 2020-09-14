@@ -56,6 +56,13 @@ public class GenerateProperties {
     @NoArgsConstructor
     public static class Template{
 
+        private Template(String templateFile, String dir, String suffix, String type) {
+            this.templateFile = templateFile;
+            this.dir = dir;
+            this.suffix = suffix;
+            this.type = type;
+        }
+
         /**
          * 模板文件地址，相对于在 resources 文件夹
          */
@@ -76,5 +83,15 @@ public class GenerateProperties {
          * @see GenarateFactory
          */
         private String type;
+
+        /**
+         * 是否需要包名层级
+         */
+        private Boolean needTablePackage;
+
+        /**
+         * 子模板
+         */
+        private Map<String, Template> child;
     }
 }

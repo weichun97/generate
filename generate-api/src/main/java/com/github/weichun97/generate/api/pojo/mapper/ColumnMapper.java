@@ -16,6 +16,7 @@ import java.util.List;
 public interface ColumnMapper {
 
     @Mappings({
+            @Mapping(target = "oldColumnName", source = "columnName"),
             @Mapping(target = "columnName", expression = "java(cn.hutool.core.util.StrUtil.toCamelCase(columnEntity.getColumnName()))"),
             @Mapping(target = "javaType", expression = "java(com.github.weichun97.generate.common.util.TableUtils.cloumnTypeToStr(columnEntity.getDataType()))")
     })
