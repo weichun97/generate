@@ -79,7 +79,6 @@ public class GenerateServiceImpl implements GenerateService {
                         GenarateFactory.get(v.getType()).generate(tableInfo, v, generateReqVO.getModule());
                     });
                 }
-                GenarateFactory.get(generateProperties.getTemplateMap().get(type).getType()).generate(tableInfo, type);
             });
         });
     }

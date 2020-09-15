@@ -28,7 +28,7 @@ import java.util.Map;
 @Data
 public abstract class BaseGenerate implements Generate {
 
-    @Resource
+    @Resource(name = "chunGenerateFreemakerConfig")
     Configuration configuration;
     @Resource
     SpringUtils springUtils;
