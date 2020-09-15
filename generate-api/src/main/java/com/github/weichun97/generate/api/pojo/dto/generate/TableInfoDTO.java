@@ -34,7 +34,6 @@ public class TableInfoDTO implements Serializable {
      */
     private String tableComment;
 
-
     /***
      * 表字段信息
      */

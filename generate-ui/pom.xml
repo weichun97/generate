@@ -5,14 +5,12 @@
     <parent>
         <artifactId>generate</artifactId>
         <groupId>com.github.weichun97</groupId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>generate-ui</artifactId>
-    <version>1.0.0</version>
-
     <name>generate-ui</name>
     <description>ui module</description>
     <url>https://github.com/weichun97/generate</url>

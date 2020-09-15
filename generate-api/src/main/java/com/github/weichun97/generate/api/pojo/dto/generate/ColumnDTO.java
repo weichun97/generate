@@ -13,6 +13,11 @@ public class ColumnDTO implements Serializable {
     private static final long serialVersionUID = -6906807865346733901L;
 
     /**
+     * 数据库列
+     */
+    private String oldColumnName;
+
+    /**
      * 列名，小驼峰
      */
     private String columnName;

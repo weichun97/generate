@@ -14,7 +14,7 @@ import java.util.Locale;
 @org.springframework.context.annotation.Configuration
 public class FreemakerConfig {
 
-    @Bean
+    @Bean("chunGenerateFreemakerConfig")
     public Configuration getConfiguration() {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
         try {

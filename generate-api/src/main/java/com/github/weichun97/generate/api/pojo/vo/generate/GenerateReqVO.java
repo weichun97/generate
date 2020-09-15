@@ -24,4 +24,7 @@ public class GenerateReqVO implements Serializable {
     @NotEmpty(message = "请选择要生成文件类型")
     @ApiModelProperty(value = "文件类型", example = "dao,service")
     private List<String> types;
+
+    @ApiModelProperty(value = "模块名", example = "ship")
+    private String module;
 }

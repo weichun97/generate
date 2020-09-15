@@ -69,7 +69,16 @@ public class GenerateServiceImpl implements GenerateService {
                 if(GenarateFactory.get(generateProperties.getTemplateMap().get(type).getType()) == null){
                     throw new RuntimeException("未定义的生成器类型["+ generateProperties.getTemplateMap().get(type).getType() +"]");
                 }
-                GenarateFactory.get(generateProperties.getTemplateMap().get(type).getType()).generate(tableInfo, type);
+                // 生成
+                GenerateProperties.Template template = generateProperties.getTemplateMap().get(type);
+                GenarateFactory.get(template.getType()).generate(tableInfo, template, generateReqVO.getModule());
+
+                // 递归生成子模板
+                if(template.getChild() != null){
+                    template.getChild().forEach((k, v) -> {
+                        GenarateFactory.get(v.getType()).generate(tableInfo, v, generateReqVO.getModule());
+                    });
+                }
             });
         });
     }
