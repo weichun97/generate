@@ -1,8 +1,11 @@
 spring:
+  application:
+    name: generate-test
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:h2:~/chun_generate;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
     username: root
     password: root
+    driverClassName: org.h2.Driver
+#    schema:
   profiles:
     include: generate

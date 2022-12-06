@@ -2,11 +2,11 @@ package com.github.weichun97.generate.api.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.github.weichun97.generate.api.config.GenerateProperties;
-import com.github.weichun97.generate.api.generate.*;
+import com.github.weichun97.generate.api.generate.GenarateFactory;
 import com.github.weichun97.generate.api.pojo.dto.generate.TableInfoDTO;
-import com.github.weichun97.generate.api.pojo.mapper.ColumnMapper;
 import com.github.weichun97.generate.api.pojo.entity.ColumnEntity;
 import com.github.weichun97.generate.api.pojo.entity.TableEntity;
+import com.github.weichun97.generate.api.pojo.mapper.ColumnMapper;
 import com.github.weichun97.generate.api.pojo.vo.generate.GenerateReqVO;
 import com.github.weichun97.generate.api.pojo.vo.generate.ListResVO;
 import com.github.weichun97.generate.api.service.ColumnService;

@@ -1,33 +1,36 @@
 package com.github.weichun97.generate.common.exception;
 
 import com.github.weichun97.generate.common.api.IErrorCode;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 /**
- * 自定义API异常
+ * The type Api exception.
+ *
  * @author chun
- * @date 2020/8/13 11:35
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiException extends RuntimeException {
+    /**
+     * 异常码
+     */
     private IErrorCode errorCode;
 
-    public ApiException(IErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
-    }
+    /**
+     * 自定义错误描述
+     */
+    private String msg;
 
-    public ApiException(String message) {
-        super(message);
-    }
-
-    public ApiException(Throwable cause) {
-        super(cause);
-    }
-
-    public ApiException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public IErrorCode getErrorCode() {
-        return errorCode;
+    /**
+     * Instantiates a new Api exception.
+     *
+     * @param iErrorCode the error code
+     */
+    public ApiException(IErrorCode iErrorCode){
+        this.errorCode = iErrorCode;
     }
 }
