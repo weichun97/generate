@@ -1,4 +1,4 @@
-package com.github.weichun97.generate.common.config;
+package com.github.weichun97.generate.common.mybatis;
 
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @author
  */
 @Configuration
-@MapperScan(basePackages = {"com.github.weichun97.generate.**.mapper"})
+@MapperScan(basePackages = {"com.github.weichun97.generate.**.dao"})
 public class GenerateMybatisPlusConfig {
 
 	@Bean

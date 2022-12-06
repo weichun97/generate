@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.weichun97.generate.common;
+package com.github.weichun97.generate.common.swagger;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

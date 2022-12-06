@@ -1,4 +1,4 @@
-package com.github.weichun97.generate.common;
+package com.github.weichun97.generate.common.mybatis;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;

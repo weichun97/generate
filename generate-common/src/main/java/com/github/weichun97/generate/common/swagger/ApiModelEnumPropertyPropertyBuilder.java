@@ -17,7 +17,7 @@
  *
  */
 
-package com.github.weichun97.generate.common;
+package com.github.weichun97.generate.common.swagger;
 
 import com.google.common.base.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ import springfox.documentation.spring.web.DescriptionResolver;
 import springfox.documentation.swagger.common.SwaggerPluginSupport;
 import springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration;
 
-import static com.github.weichun97.generate.common.ApiModelEnumProperties.*;
+import static com.github.weichun97.generate.common.swagger.ApiModelEnumProperties.*;
 import static springfox.documentation.schema.Annotations.findPropertyAnnotation;
 
 @ConditionalOnBean(Swagger2DocumentationConfiguration.class)

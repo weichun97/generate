@@ -1,4 +1,4 @@
-package com.github.weichun97.generate.common;
+package com.github.weichun97.generate.common.swagger;
 
 import cn.hutool.core.util.ReflectUtil;
 import com.fasterxml.classmate.ResolvedType;

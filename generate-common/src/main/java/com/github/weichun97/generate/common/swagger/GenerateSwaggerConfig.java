@@ -1,4 +1,4 @@
-package com.github.weichun97.generate.common.config;
+package com.github.weichun97.generate.common.swagger;
 
 
 import org.springframework.beans.factory.annotation.Value;
@@ -32,14 +32,14 @@ public class GenerateSwaggerConfig {
     /**
      * swagger 文档扫描的包
      */
-    private static final String BASE_PACKAGE = "com.itran.fgoc";
+    private static final String BASE_PACKAGE = "com.github.weichun97.generate";
 
     /**
      * 创建获取api应用
      * @return
      */
     @Bean
-    public Docket createFgocRestApi() {
+    public Docket createRestApi() {
         HashSet<String> strings = new HashSet<>();
         strings.add("application/json");
         return new Docket(DocumentationType.SWAGGER_2)
