@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@ApiModel("com.github.weichun97.generate.api.pojo.param.template.UpdateDetailParam")
+@ApiModel("com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateDetailParam")
 public class SaveOrUpdateDetailParam {
 
     @NotNull(message = "模板id不能为空")

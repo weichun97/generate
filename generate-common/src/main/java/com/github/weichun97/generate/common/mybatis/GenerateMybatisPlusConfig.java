@@ -22,7 +22,7 @@ public class GenerateMybatisPlusConfig {
 	public MybatisPlusInterceptor mybatisPlusInterceptor() {
 		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
 		// 分页插件
-		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
 		// 防全表更新插件
 		interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
 		return interceptor;

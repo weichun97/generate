@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.weichun97.generate.api.pojo.dao.TemplateDao">
+
+    <select id="query" resultType="com.github.weichun97.generate.api.pojo.vo.template.TemplateQueryVO">
+        select * from TL_TEMPLATE
+        <where>
+            <if test="templateQueryParam.name != null and templateQueryParam.name != ''">
+                name like concat('%', #{templateQueryParam.name}, '%')
+            </if>
+        </where>
+        order by CREATE_TIME desc
+    </select>
+</mapper>

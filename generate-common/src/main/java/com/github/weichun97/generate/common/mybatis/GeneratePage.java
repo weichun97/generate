@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @ApiModel(description = "分页返回对象")
-public class GeneratePage<T> implements IPage {
+public class GeneratePage<T> implements IPage<T> {
 
 
     private static final long serialVersionUID = 8545996863226528798L;
