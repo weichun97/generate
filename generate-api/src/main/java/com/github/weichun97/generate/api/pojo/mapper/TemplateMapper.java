@@ -2,7 +2,10 @@ package com.github.weichun97.generate.api.pojo.mapper;
 
 import com.github.weichun97.generate.api.pojo.entity.TemplateEntity;
 import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateParam;
+import com.github.weichun97.generate.common.api.SelectVO;
 import org.mapstruct.Mapper;
+
+import java.util.List;
 
 /**
  * @author chun
@@ -12,4 +15,6 @@ import org.mapstruct.Mapper;
 public interface TemplateMapper {
 
     TemplateEntity saveOrUpdateParamToPo(SaveOrUpdateParam saveOrUpdateParam);
+    SelectVO poToSelectVo(TemplateEntity templateEntity);
+    List<SelectVO> poToSelectVo(List<TemplateEntity> templateEntities);
 }

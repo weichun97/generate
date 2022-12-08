@@ -7,6 +7,7 @@ import com.github.weichun97.generate.api.pojo.vo.template.ListDetailVO;
 import com.github.weichun97.generate.api.pojo.vo.template.TemplateQueryVO;
 import com.github.weichun97.generate.api.service.TemplateService;
 import com.github.weichun97.generate.common.api.Response;
+import com.github.weichun97.generate.common.api.SelectVO;
 import com.github.weichun97.generate.common.mybatis.GeneratePage;
 import com.github.weichun97.generate.common.mybatis.GeneratePageParam;
 import io.swagger.annotations.Api;
@@ -33,6 +34,12 @@ public class TemplateController {
     @GetMapping("query")
     public Response<GeneratePage<TemplateQueryVO>> query(GeneratePageParam pageParam, TemplateQueryParam templateQueryParam) {
         return Response.success(templateService.query(pageParam, templateQueryParam));
+    }
+
+    @ApiOperation("模板列表下拉")
+    @GetMapping("select")
+    public Response<List<SelectVO>> select() {
+        return Response.success(templateService.select());
     }
 
     @ApiOperation("保存模板")

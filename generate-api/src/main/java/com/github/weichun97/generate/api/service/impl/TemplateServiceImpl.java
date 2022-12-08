@@ -15,6 +15,7 @@ import com.github.weichun97.generate.api.pojo.vo.template.ListDetailVO;
 import com.github.weichun97.generate.api.pojo.vo.template.TemplateQueryVO;
 import com.github.weichun97.generate.api.service.TemplateDetailService;
 import com.github.weichun97.generate.api.service.TemplateService;
+import com.github.weichun97.generate.common.api.SelectVO;
 import com.github.weichun97.generate.common.mybatis.GeneratePage;
 import com.github.weichun97.generate.common.mybatis.GeneratePageParam;
 import org.springframework.stereotype.Service;
@@ -82,5 +83,13 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateDao, TemplateEntity
         templateDetailService.remove(new LambdaQueryWrapper<TemplateDetailEntity>()
                 .eq(TemplateDetailEntity::getTemplateId, id)
         );
+    }
+
+    @Override
+    public List<SelectVO> select() {
+        List<TemplateEntity> templateEntities = list(new LambdaQueryWrapper<TemplateEntity>()
+                .select(TemplateEntity::getId, TemplateEntity::getName)
+        );
+        return CollUtil.isEmpty(templateEntities) ? Collections.emptyList() : mapper.poToSelectVo(templateEntities);
     }
 }

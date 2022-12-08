@@ -8,6 +8,7 @@ import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateParam;
 import com.github.weichun97.generate.api.pojo.param.template.TemplateQueryParam;
 import com.github.weichun97.generate.api.pojo.vo.template.ListDetailVO;
 import com.github.weichun97.generate.api.pojo.vo.template.TemplateQueryVO;
+import com.github.weichun97.generate.common.api.SelectVO;
 import com.github.weichun97.generate.common.mybatis.GeneratePage;
 import com.github.weichun97.generate.common.mybatis.GeneratePageParam;
 
@@ -68,4 +69,10 @@ public interface TemplateService extends IService<TemplateEntity> {
      * @param id
      */
     void remove(Long id);
+
+    /**
+     * 下拉
+     * @return
+     */
+    List<SelectVO> select();
 }
