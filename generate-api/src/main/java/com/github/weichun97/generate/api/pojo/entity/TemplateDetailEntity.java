@@ -27,9 +27,9 @@ public class TemplateDetailEntity {
   private String content;
 
   /**
-   * 文件后缀
+   * 文件名
    */
-  private String suffix;
+  private String fileName;
 
   /**
    * 文件目录

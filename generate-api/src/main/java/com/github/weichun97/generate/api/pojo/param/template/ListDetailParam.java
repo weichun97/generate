@@ -10,4 +10,7 @@ public class ListDetailParam {
 
     @ApiModelProperty(value = "id", example = "模板组id")
     private Long id;
+
+    @ApiModelProperty(value = "模板名", example = "controller")
+    private String name;
 }

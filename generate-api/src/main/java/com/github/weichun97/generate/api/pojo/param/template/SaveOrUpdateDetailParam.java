@@ -24,9 +24,9 @@ public class SaveOrUpdateDetailParam {
     @ApiModelProperty(value = "模板内容", example = "")
     private String content;
 
-    @Length(max = 20, message = "文件后缀长度不能超过20")
-    @ApiModelProperty(value = "文件后缀", example = "Mapper.java")
-    private String suffix;
+    @Length(max = 100, message = "文件名长度不能超过100")
+    @ApiModelProperty(value = "文件名", example = "Mapper.java")
+    private String fileName;
 
     @Length(max = 50, message = "文件后缀长度不能超过50")
     @ApiModelProperty(value = "文件目录", example = "module/user")

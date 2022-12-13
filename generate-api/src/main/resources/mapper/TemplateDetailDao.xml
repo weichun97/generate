@@ -4,11 +4,15 @@
 <mapper namespace="com.github.weichun97.generate.api.pojo.dao.TemplateDetailDao">
 
     <select id="listDetail" resultType="com.github.weichun97.generate.api.pojo.vo.template.ListDetailVO">
-        select * from tl_template_detail
+        select t1.id, t1.name, t1.content, t1.file_name, t1.dir, t1.template_id, t2.name template_name from tl_template_detail t1
+        left join tl_template t2 on t1.template_id = t2.id and t2.delete_time is null
         <where>
-            delete_time is null
+            t1.delete_time is null
             <if test="listDetailParam.id != null and listDetailParam.id != 0">
-                and template_id = #{listDetailParam.id}
+                and t1.template_id = #{listDetailParam.id,jdbcType=BIGINT}
+            </if>
+            <if test="listDetailParam.name != null and listDetailParam.name != ''">
+                and t1.name like concat('%', #{listDetailParam.name,jdbcType=VARCHAR}, '%')
             </if>
         </where>
     </select>
