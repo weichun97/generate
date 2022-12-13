@@ -3,6 +3,7 @@ package com.github.weichun97.generate.api.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.weichun97.generate.api.pojo.entity.TemplateDetailEntity;
 import com.github.weichun97.generate.api.pojo.entity.TemplateEntity;
+import com.github.weichun97.generate.api.pojo.param.template.ListDetailParam;
 import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateDetailParam;
 import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateParam;
 import com.github.weichun97.generate.api.pojo.param.template.TemplateQueryParam;
@@ -21,7 +22,7 @@ public interface TemplateService extends IService<TemplateEntity> {
      * @param id
      * @return
      */
-    List<ListDetailVO> listDetail(Long id);
+    GeneratePage<ListDetailVO> listDetail(GeneratePageParam pageParam, ListDetailParam listDetailParam);
 
     /**
      * 删除模板详情

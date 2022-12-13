@@ -3,4 +3,13 @@
 
 <mapper namespace="com.github.weichun97.generate.api.pojo.dao.TemplateDetailDao">
 
+    <select id="listDetail" resultType="com.github.weichun97.generate.api.pojo.vo.template.ListDetailVO">
+        select * from tl_template_detail
+        <where>
+            delete_time is null
+            <if test="listDetailParam.id != null and listDetailParam.id != 0">
+                and template_id = #{listDetailParam.id}
+            </if>
+        </where>
+    </select>
 </mapper>

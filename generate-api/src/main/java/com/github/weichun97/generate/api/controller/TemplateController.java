@@ -1,5 +1,6 @@
 package com.github.weichun97.generate.api.controller;
 
+import com.github.weichun97.generate.api.pojo.param.template.ListDetailParam;
 import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateDetailParam;
 import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateParam;
 import com.github.weichun97.generate.api.pojo.param.template.TemplateQueryParam;
@@ -64,9 +65,9 @@ public class TemplateController {
     }
 
     @ApiOperation("获取模板详情列表")
-    @GetMapping("listDetail/{id}")
-    public Response<List<ListDetailVO>> listDetail(@PathVariable Long id){
-        return Response.success(templateService.listDetail(id));
+    @GetMapping("listDetail")
+    public Response<GeneratePage<ListDetailVO>> listDetail(GeneratePageParam pageParam, ListDetailParam listDetailParam){
+        return Response.success(templateService.listDetail(pageParam, listDetailParam));
     }
 
     @ApiOperation("保存模板详情")

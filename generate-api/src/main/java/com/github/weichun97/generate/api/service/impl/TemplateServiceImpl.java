@@ -8,6 +8,7 @@ import com.github.weichun97.generate.api.pojo.entity.TemplateDetailEntity;
 import com.github.weichun97.generate.api.pojo.entity.TemplateEntity;
 import com.github.weichun97.generate.api.pojo.mapper.TemplateDetailMapper;
 import com.github.weichun97.generate.api.pojo.mapper.TemplateMapper;
+import com.github.weichun97.generate.api.pojo.param.template.ListDetailParam;
 import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateDetailParam;
 import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateParam;
 import com.github.weichun97.generate.api.pojo.param.template.TemplateQueryParam;
@@ -36,11 +37,8 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateDao, TemplateEntity
     private TemplateDetailMapper templateDetailMapper;
 
     @Override
-    public List<ListDetailVO> listDetail(Long id) {
-        List<TemplateDetailEntity> templateDetailEntities = templateDetailService.list(new LambdaQueryWrapper<TemplateDetailEntity>()
-                .eq(TemplateDetailEntity::getTemplateId, id)
-        );
-        return CollUtil.isEmpty(templateDetailEntities) ? Collections.emptyList() : templateDetailMapper.poToListDetailByIdVo(templateDetailEntities);
+    public GeneratePage<ListDetailVO> listDetail(GeneratePageParam pageParam, ListDetailParam listDetailParam) {
+        return templateDetailService.listDetail(GeneratePage.getPage(pageParam), listDetailParam);
     }
 
     @Override
