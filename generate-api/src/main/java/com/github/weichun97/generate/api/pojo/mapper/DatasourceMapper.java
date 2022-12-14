@@ -1,6 +1,7 @@
 package com.github.weichun97.generate.api.pojo.mapper;
 
 import com.github.weichun97.generate.api.pojo.entity.DatasourceEntity;
+import com.github.weichun97.generate.api.pojo.param.datasource.SaveOrUpdateParam;
 import com.github.weichun97.generate.api.pojo.vo.datasource.ListVO;
 import org.mapstruct.Mapper;
 
@@ -15,4 +16,6 @@ public interface DatasourceMapper {
 
     ListVO poToListVo(DatasourceEntity datasourceEntity);
     List<ListVO> poToListVo(List<DatasourceEntity> datasourceEntities);
+
+    DatasourceEntity saveOrUpdateParamToPo(SaveOrUpdateParam saveOrUpdateParam);
 }

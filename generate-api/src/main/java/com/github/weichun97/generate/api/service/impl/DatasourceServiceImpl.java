@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.weichun97.generate.api.pojo.dao.DatasourceDao;
 import com.github.weichun97.generate.api.pojo.entity.DatasourceEntity;
+import com.github.weichun97.generate.api.pojo.entity.TemplateEntity;
 import com.github.weichun97.generate.api.pojo.mapper.DatasourceMapper;
+import com.github.weichun97.generate.api.pojo.param.datasource.SaveOrUpdateParam;
 import com.github.weichun97.generate.api.pojo.vo.datasource.ListVO;
 import com.github.weichun97.generate.api.service.DatasourceService;
 import org.springframework.stereotype.Service;
@@ -30,5 +32,21 @@ public class DatasourceServiceImpl extends ServiceImpl<DatasourceDao, Datasource
                 .orderByDesc(DatasourceEntity::getCreateTime)
         );
         return CollUtil.isEmpty(datasourceEntities) ? Collections.emptyList() : maps.poToListVo(datasourceEntities);
+    }
+
+    @Override
+    public void save(SaveOrUpdateParam saveOrUpdateParam) {
+        save(maps.saveOrUpdateParamToPo(saveOrUpdateParam));
+    }
+
+    @Override
+    public void remove(Long id) {
+        removeById(id);
+    }
+
+    @Override
+    public void update(Long id, SaveOrUpdateParam saveOrUpdateParam) {
+        update(maps.saveOrUpdateParamToPo(saveOrUpdateParam),
+                new LambdaQueryWrapper<DatasourceEntity>().eq(DatasourceEntity::getId, id));
     }
 }
