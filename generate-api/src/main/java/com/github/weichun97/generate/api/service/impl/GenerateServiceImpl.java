@@ -8,7 +8,8 @@ import com.github.weichun97.generate.api.pojo.entity.DatasourceEntity;
 import com.github.weichun97.generate.api.pojo.mapper.ColumnMapper;
 import com.github.weichun97.generate.api.pojo.mapper.DatasourceMapper;
 import com.github.weichun97.generate.api.pojo.mapper.TableMapper;
-import com.github.weichun97.generate.api.pojo.vo.generate.GenerateReqVO;
+import com.github.weichun97.generate.api.pojo.param.generate.GenerateParam;
+import com.github.weichun97.generate.api.pojo.vo.generate.GenerateVO;
 import com.github.weichun97.generate.api.pojo.vo.generate.TablesVO;
 import com.github.weichun97.generate.api.service.ColumnService;
 import com.github.weichun97.generate.api.service.DatasourceService;
@@ -27,6 +28,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chun
@@ -51,7 +53,18 @@ public class GenerateServiceImpl implements GenerateService {
     ColumnMapper columnMapper;
 
     @Override
-    public void generate(GenerateReqVO generateReqVO) {
+    public List<GenerateVO> generate(GenerateParam generateParam) {
+        DatasourceEntity datasourceEntity = datasourceService.getById(generateParam.getDatasourceId());
+        BizAssert.assertNotNull(datasourceEntity, ResultCode.CODE_10004);
+        try (Connection connect = JdbcUtils.getConnect(datasourceMaps.poToJdbcParam(datasourceEntity))) {
+            SqlSelector sqlSelector = SqlSelectorFactory.get(datasourceEntity.getDbType());
+            SqlRunner sqlRunner = new SqlRunner(connect);
+            List<Map<String, Object>> maps = sqlRunner.selectAll(sqlSelector.showTablesSql(datasourceEntity.getDbName()));
+            return Collections.emptyList();
+        } catch (SQLException throwables) {
+            throw new ApiException(ResultCode.CODE_10005, String.format("sql执行失败,%s", throwables.getMessage()));
+        }
+
 //        // 获取表结构
 //        List<ColumnEntity> columnEntities = columnService.getByTableNames(generateReqVO.getTableNames());
 //        Map<String, List<ColumnEntity>> tableNameColumnEntityMap = columnEntities.stream().collect(Collectors.groupingBy(ColumnEntity::getTableName));

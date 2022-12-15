@@ -1,6 +1,7 @@
 package com.github.weichun97.generate.api.service;
 
-import com.github.weichun97.generate.api.pojo.vo.generate.GenerateReqVO;
+import com.github.weichun97.generate.api.pojo.param.generate.GenerateParam;
+import com.github.weichun97.generate.api.pojo.vo.generate.GenerateVO;
 import com.github.weichun97.generate.api.pojo.vo.generate.TablesVO;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public interface GenerateService {
 
     /**
      * 代码生成
-     * @param generateReqVO
+     * @param generateParam
      */
-    void generate(GenerateReqVO generateReqVO);
+    List<GenerateVO> generate(GenerateParam generateParam);
 
     /**
      * 可生成文件类型
