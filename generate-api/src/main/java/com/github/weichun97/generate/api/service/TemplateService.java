@@ -19,10 +19,9 @@ public interface TemplateService extends IService<TemplateEntity> {
 
     /**
      * 获取模板详情列表
-     * @param id
      * @return
      */
-    GeneratePage<ListDetailVO> listDetail(GeneratePageParam pageParam, ListDetailParam listDetailParam);
+    List<ListDetailVO> listDetail(ListDetailParam listDetailParam);
 
     /**
      * 删除模板详情

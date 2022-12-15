@@ -37,8 +37,9 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateDao, TemplateEntity
     private TemplateDetailMapper templateDetailMapper;
 
     @Override
-    public GeneratePage<ListDetailVO> listDetail(GeneratePageParam pageParam, ListDetailParam listDetailParam) {
-        return templateDetailService.listDetail(GeneratePage.getPage(pageParam), listDetailParam);
+    public List<ListDetailVO> listDetail(ListDetailParam listDetailParam) {
+        List<ListDetailVO> listDetailVOS = templateDetailService.listDetail(listDetailParam);
+        return CollUtil.isEmpty(listDetailVOS) ? Collections.emptyList() : listDetailVOS;
     }
 
     @Override

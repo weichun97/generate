@@ -5,6 +5,7 @@ import com.github.weichun97.generate.api.pojo.entity.DatasourceEntity;
 import com.github.weichun97.generate.api.pojo.param.datasource.SaveOrUpdateParam;
 import com.github.weichun97.generate.api.pojo.vo.datasource.ListVO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -37,4 +38,10 @@ public interface DatasourceService extends IService<DatasourceEntity> {
      * @param saveOrUpdateParam
      */
     void update(Long id, SaveOrUpdateParam saveOrUpdateParam);
+
+    /**
+     * 测试连接
+     * @param saveOrUpdateParam
+     */
+    void test(SaveOrUpdateParam saveOrUpdateParam);
 }

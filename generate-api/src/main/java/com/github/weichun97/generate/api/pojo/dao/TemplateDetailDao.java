@@ -8,11 +8,13 @@ import com.github.weichun97.generate.common.mybatis.GeneratePage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author chun
  * @date 2020/8/12 15:51
  */
 @Mapper
 public interface TemplateDetailDao extends BaseMapper<TemplateDetailEntity> {
-    GeneratePage<ListDetailVO> listDetail(@Param("page") GeneratePage page, @Param("listDetailParam") ListDetailParam listDetailParam);
+    List<ListDetailVO> listDetail(@Param("listDetailParam") ListDetailParam listDetailParam);
 }

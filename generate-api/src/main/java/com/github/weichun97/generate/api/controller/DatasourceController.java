@@ -50,4 +50,11 @@ public class DatasourceController {
         datasourceService.remove(id);
         return Response.success();
     }
+
+    @ApiOperation("测试连接")
+    @PostMapping("test")
+    public Response test(@Valid @RequestBody SaveOrUpdateParam saveOrUpdateParam){
+        datasourceService.test(saveOrUpdateParam);
+        return Response.success();
+    }
 }

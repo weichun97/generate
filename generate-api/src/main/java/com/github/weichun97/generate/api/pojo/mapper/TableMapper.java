@@ -1,10 +1,12 @@
 package com.github.weichun97.generate.api.pojo.mapper;
 
-import com.github.weichun97.generate.api.pojo.entity.TableEntity;
-import com.github.weichun97.generate.api.pojo.vo.generate.ListResVO;
+import com.github.weichun97.generate.api.pojo.vo.generate.TablesVO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chun
@@ -12,19 +14,11 @@ import java.util.List;
  */
 @Mapper(componentModel = "spring")
 public interface TableMapper {
-    /**
-     * po 转 ListResVO
-     * @param tableEntity 表信息
-     * @return ListResVO
-     */
-    ListResVO poToListResVO(TableEntity tableEntity);
 
-    /**
-     * po 转 ListResVO
-     * @param tableEntities 表信息
-     * @return List<ListResVO>
-     */
-    List<ListResVO> poToListResVO(List<TableEntity> tableEntities);
-
-
+    @Mappings({
+            @Mapping(expression = "java(map.get(\"NAME\").toString())", target = "name"),
+            @Mapping(expression = "java(map.get(\"COMMENT\").toString())", target = "comment"),
+    })
+    TablesVO mapToTablesVo(Map<String, Object> map);
+    List<TablesVO> mapToTablesVo(List<Map<String, Object>> map);
 }

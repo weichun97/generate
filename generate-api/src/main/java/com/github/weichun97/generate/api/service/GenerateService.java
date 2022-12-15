@@ -1,7 +1,7 @@
 package com.github.weichun97.generate.api.service;
 
 import com.github.weichun97.generate.api.pojo.vo.generate.GenerateReqVO;
-import com.github.weichun97.generate.api.pojo.vo.generate.ListResVO;
+import com.github.weichun97.generate.api.pojo.vo.generate.TablesVO;
 
 import java.util.List;
 
@@ -10,12 +10,6 @@ import java.util.List;
  * @date 2020/8/12 16:57
  */
 public interface GenerateService {
-
-    /**
-     * 表列表
-     * @return
-     */
-    List<ListResVO> listQuery();
 
     /**
      * 代码生成
@@ -28,4 +22,11 @@ public interface GenerateService {
      * @return
      */
     List<String> types();
+
+    /**
+     * 表列表
+     * @param datasourceId
+     * @return
+     */
+    List<TablesVO> tables(Long datasourceId);
 }

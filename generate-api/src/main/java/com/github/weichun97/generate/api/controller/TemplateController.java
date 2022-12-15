@@ -66,8 +66,8 @@ public class TemplateController {
 
     @ApiOperation("获取模板详情列表")
     @GetMapping("listDetail")
-    public Response<GeneratePage<ListDetailVO>> listDetail(GeneratePageParam pageParam, ListDetailParam listDetailParam){
-        return Response.success(templateService.listDetail(pageParam, listDetailParam));
+    public Response<List<ListDetailVO>> listDetail(ListDetailParam listDetailParam){
+        return Response.success(templateService.listDetail(listDetailParam));
     }
 
     @ApiOperation("保存模板详情")
