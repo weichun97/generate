@@ -1,4 +1,4 @@
-package com.github.weichun97.generate.api.generate;
+package com.github.weichun97.generate.api.generate.selector;
 
 import java.util.HashMap;
 import java.util.Map;

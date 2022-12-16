@@ -7,6 +7,48 @@ import java.util.Map;
 public interface DatasourceVar {
 
     /**
+     * 数据库字段类型
+     */
+    interface DataType {
+        /**
+         * 数字类型
+         */
+        String TINYINT = "tinyint";
+        String SMALLINT = "smallint";
+        String MEDIUMINT = "mediumint";
+        String INT = "int";
+        String INTEGER = "integer";
+        String BIGINT = "bigint";
+        String FLOAT = "float";
+        String DOUBLE = "double";
+        String DECIMAL = "decimal";
+
+        /**
+         * 字符串类型
+         */
+        String BIT = "bit";
+        String CHAR = "char";
+        String VARCHAR = "varchar";
+        String TINYBLOB = "tinyblob";
+        String TINYTEXT = "tinytext";
+        String BLOB = "blob";
+        String TEXT = "text";
+        String MEDIUMBLOB = "mediumblob";
+        String MEDIUMTEXT = "mediumtext";
+        String LONGBLOB = "longblob";
+        String LONGTEXT = "longtext";
+
+        /**
+         * 日期类型
+         */
+        String DATE = "date";
+        String TIME = "time";
+        String YEAR = "year";
+        String DATETIME = "datetime";
+        String TIMESTAMP = "timestamp";
+    }
+
+    /**
      * 数据类型
      */
     interface DbType{

@@ -110,6 +110,18 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
+
+        <!-- streamex -->
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+        </dependency>
+
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

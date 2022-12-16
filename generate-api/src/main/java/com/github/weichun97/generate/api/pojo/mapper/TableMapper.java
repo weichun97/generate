@@ -1,12 +1,10 @@
 package com.github.weichun97.generate.api.pojo.mapper;
 
+import com.github.weichun97.generate.api.generate.TableDTO;
 import com.github.weichun97.generate.api.pojo.vo.generate.TablesVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author chun
@@ -14,11 +12,7 @@ import java.util.Map;
  */
 @Mapper(componentModel = "spring")
 public interface TableMapper {
+    TablesVO dtoToVo(TableDTO tableDTO);
 
-    @Mappings({
-            @Mapping(expression = "java(map.get(\"NAME\").toString())", target = "name"),
-            @Mapping(expression = "java(map.get(\"COMMENT\").toString())", target = "comment"),
-    })
-    TablesVO mapToTablesVo(Map<String, Object> map);
-    List<TablesVO> mapToTablesVo(List<Map<String, Object>> map);
+    List<TablesVO> dtoToVo(List<TableDTO> tableDTOS);
 }

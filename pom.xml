@@ -31,6 +31,8 @@
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <hutool.version>5.7.13</hutool.version>
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <streamex.version>0.6.5</streamex.version>
+        <guava.version>31.1-jre</guava.version>
     </properties>
 
 
@@ -129,6 +131,20 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- streamex -->
+            <dependency>
+                <groupId>one.util</groupId>
+                <artifactId>streamex</artifactId>
+                <version>${streamex.version}</version>
+            </dependency>
+
+            <!-- guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

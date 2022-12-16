@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 public class JdbcUtils {
 
@@ -23,8 +24,6 @@ public class JdbcUtils {
      * @throws SQLException
      */
     public static Connection getConnect(Param param) {
-        // TODO: 2022/12/15 测试不手动注入
-//        registJdbcDriverClass(param.getDbType());
         try {
             Connection connection = DriverManager.getConnection(getJdbcUrl(param), param.getUsername(), param.getPassword());
             BizAssert.assertNotNull(connection, ResultCode.CODE_10003);
@@ -58,14 +57,19 @@ public class JdbcUtils {
     }
 
     /**
-     * 根据数据库类型{@link DatasourceVar.DbType} 获取驱动类
-     * @param dbType
+     * 删除表前缀
+     * @param tableName 表名
+     * @param prefixs 前缀列表
      * @return
      */
-    private static void registJdbcDriverClass(int dbType) throws ClassNotFoundException {
-        String jdbcDriverClass = DatasourceVar.DbType.DRIVER.get(dbType);
-        BizAssert.assertNotBlank(jdbcDriverClass, ResultCode.CODE_10001);
-        Class.forName(jdbcDriverClass);
+    public static String removePrefix(String tableName, List<String> prefixs){
+        for (int i = 0; i < prefixs.size(); i++) {
+            if(tableName.startsWith(prefixs.get(i))){
+                tableName = StrUtil.removePrefix(tableName, prefixs.get(i));
+                break;
+            }
+        }
+        return tableName;
     }
 
     @Data
