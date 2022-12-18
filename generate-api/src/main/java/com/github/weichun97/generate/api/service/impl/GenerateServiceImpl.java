@@ -1,15 +1,17 @@
 package com.github.weichun97.generate.api.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.template.engine.freemarker.SimpleStringTemplateLoader;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.github.weichun97.generate.api.config.FreemakerConfig;
 import com.github.weichun97.generate.api.generate.ColumnDTO;
+import com.github.weichun97.generate.api.generate.GenerateContext;
+import com.github.weichun97.generate.api.generate.TableDTO;
+import com.github.weichun97.generate.api.generate.convert.ColumnTypeConverter;
+import com.github.weichun97.generate.api.generate.convert.ColumnTypeConverterFactory;
+import com.github.weichun97.generate.api.generate.parser.TemplateParser;
+import com.github.weichun97.generate.api.generate.parser.TemplateParserFactory;
 import com.github.weichun97.generate.api.generate.selector.SqlSelector;
 import com.github.weichun97.generate.api.generate.selector.SqlSelectorFactory;
-import com.github.weichun97.generate.api.generate.TableDTO;
 import com.github.weichun97.generate.api.pojo.entity.DatasourceEntity;
 import com.github.weichun97.generate.api.pojo.entity.TemplateDetailEntity;
 import com.github.weichun97.generate.api.pojo.mapper.DatasourceMapper;
@@ -24,10 +26,7 @@ import com.github.weichun97.generate.api.util.JdbcUtils;
 import com.github.weichun97.generate.common.api.ResultCode;
 import com.github.weichun97.generate.common.exception.ApiException;
 import com.github.weichun97.generate.common.exception.BizAssert;
-import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
-import freemarker.template.ObjectWrapper;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import one.util.streamex.StreamEx;
@@ -36,12 +35,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -60,6 +58,8 @@ public class GenerateServiceImpl implements GenerateService {
     private DatasourceService datasourceService;
     @Resource
     private TemplateDetailService templateDetailService;
+    @Resource
+    private Configuration configuration;
 
     @Override
     public List<GenerateVO> generate(GenerateParam generateParam) {
@@ -72,65 +72,92 @@ public class GenerateServiceImpl implements GenerateService {
             // 获取数据
             List<TableDTO> tableDTOS = sqlSelector.listTableInfo(sqlRunner, datasourceEntity.getDbName(), generateParam.getTableNames(), datasourceEntity.getDelPrefix());
             List<ColumnDTO> columnDTOS = sqlSelector.listColumnInfo(sqlRunner, datasourceEntity.getDbName(), generateParam.getTableNames());
+
             Map<String, List<ColumnDTO>> tableNameOfColumnDtos = StreamEx.of(columnDTOS).groupingBy(ColumnDTO::getTableName);
             List<TemplateDetailEntity> templateDetailEntities = templateDetailService.list(new LambdaQueryWrapper<TemplateDetailEntity>()
-                    .in(TemplateDetailEntity::getTemplateId, generateParam.getTemplateIds())
+                    .in(TemplateDetailEntity::getId, generateParam.getTemplateIds())
             );
             // 生成
-            List<GenerateVO> generateVOS = CollUtil.newArrayList();
+            List<GenerateVO> rootGenerateVOS = CollUtil.newArrayList();
+            Map<String, GenerateVO> generateVoMap = new HashMap<>();
             for (TemplateDetailEntity templateDetailEntity : templateDetailEntities) {
-                if(StrUtil.isNotBlank(templateDetailEntity.getDir())){
-                    List<String> dirs = StrUtil.split(templateDetailEntity.getDir(), "/");
-//                    GenerateVO.builder()
+                ColumnTypeConverter columnTypeConverter = ColumnTypeConverterFactory.get(1);
+
+                for (TableDTO tableDTO : tableDTOS) {
+                    GenerateContext generateContext = GenerateContext.builder()
+                            .table(tableDTO)
+                            .columns(parseColumnType(columnTypeConverter, tableNameOfColumnDtos.get(tableDTO.getName())))
+                            .build();
+
+                    // 带目录的模板
+                    if(StrUtil.isNotBlank(templateDetailEntity.getDir())){
+                        List<String> dirs = StrUtil.split(templateDetailEntity.getDir(), "/");
+                        StringBuilder curDir = new StringBuilder();
+                        List<GenerateVO> parentGenerateVOS = rootGenerateVOS;
+                        // 生成文件夹的树形结构
+                        for (String dir : dirs) {
+                            // 第一个文件夹
+                            if(parentGenerateVOS.equals(rootGenerateVOS)){
+                                curDir.append(dir);
+                            }
+                            // 后续文件夹
+                            else{
+                                curDir.append("/").append(dir);
+                            }
+                            if(!generateVoMap.containsKey(curDir.toString())){
+                                GenerateVO generateVO = GenerateVO.builder()
+                                        .dirOrFileName(dir)
+                                        .children(CollUtil.newArrayList())
+                                        .build();
+                                parentGenerateVOS.add(generateVO);
+                                generateVoMap.put(curDir.toString(), generateVO);
+                            }
+                            parentGenerateVOS = generateVoMap.get(curDir.toString()).getChildren();
+                        }
+
+                        // 生成文件数据
+                        TemplateParser templateParser = TemplateParserFactory.get(1);
+                        GenerateVO generateVO = GenerateVO.builder()
+                                .dirOrFileName(templateParser.parse(generateContext, templateDetailEntity.getFileName()))
+                                .content(templateParser.parse(generateContext, templateDetailEntity.getContent()))
+                                .build();
+                        parentGenerateVOS.add(generateVO);
+                    }
+                    // 不带目录的模板
+                    else{
+                        // 生成文件数据
+                        TemplateParser templateParser = TemplateParserFactory.get(1);
+                        GenerateVO generateVO = GenerateVO.builder()
+                                .dirOrFileName(templateParser.parse(generateContext, templateDetailEntity.getFileName()))
+                                .content(templateParser.parse(generateContext, templateDetailEntity.getContent()))
+                                .build();
+                        rootGenerateVOS.add(generateVO);
+                    }
                 }
-
-//                GenerateVO generateVO = new GenerateVO();
-//                generateVO.setContent(templateDetailEntity.getContent());
-//                generateVO.set(templateDetailEntity.getContent());
-
             }
-
-
-            return Collections.emptyList();
-        } catch (SQLException throwables) {
-            throw new ApiException(ResultCode.CODE_10005, String.format("sql执行失败,%s", throwables.getMessage()));
+            return rootGenerateVOS;
+        } catch (SQLException e) {
+            throw new ApiException(ResultCode.CODE_10005, String.format("sql执行失败,%s", e.getMessage()));
+        } catch (TemplateException e) {
+            throw new ApiException(ResultCode.CODE_10006, String.format("模板解析异常,%s", e.getMessage()));
+        } catch (IOException e) {
+            throw new ApiException(ResultCode.CODE_10006, String.format("模板解析异常,%s", e.getMessage()));
         }
+    }
 
-//        // 获取表结构
-//        List<ColumnEntity> columnEntities = columnService.getByTableNames(generateReqVO.getTableNames());
-//        Map<String, List<ColumnEntity>> tableNameColumnEntityMap = columnEntities.stream().collect(Collectors.groupingBy(ColumnEntity::getTableName));
-//        List<TableInfoDTO> tableInfos = new ArrayList<>();
-//        tableNameColumnEntityMap.forEach((k, v) -> {
-//            TableEntity tableEntity = tableService.getByName(k);
-//            if(tableEntity == null){
-//                return;
-//            }
-//            tableInfos.add(TableInfoDTO.builder()
-//                    .tableName(tableEntity.getTableName())
-//                    .tableNameCamelCase(StrUtil.upperFirst(StrUtil.toCamelCase(tableEntity.getTableName())))
-//                    .tableComment(tableEntity.getTableComment())
-//                    .columnDtos(columnMapper.entityToDto(v))
-//                    .build());
-//        });
-//
-//        // 代码生成
-//        tableInfos.forEach(tableInfo -> {
-//            generateReqVO.getTypes().forEach(type -> {
-//                if(GenarateFactory.get(generateProperties.getTemplateMap().get(type).getType()) == null){
-//                    throw new RuntimeException("未定义的生成器类型["+ generateProperties.getTemplateMap().get(type).getType() +"]");
-//                }
-//                // 生成
-//                GenerateProperties.Template template = generateProperties.getTemplateMap().get(type);
-//                GenarateFactory.get(template.getType()).generate(tableInfo, template, generateReqVO.getModule());
-//
-//                // 递归生成子模板
-//                if(template.getChild() != null){
-//                    template.getChild().forEach((k, v) -> {
-//                        GenarateFactory.get(v.getType()).generate(tableInfo, v, generateReqVO.getModule());
-//                    });
-//                }
-//            });
-//        });
+    /**
+     * 解析字段类型
+     *
+     * @param columnTypeConverter
+     * @param columnDTOS
+     * @return
+     */
+    private List<ColumnDTO> parseColumnType(ColumnTypeConverter columnTypeConverter, List<ColumnDTO> columnDTOS) {
+        columnDTOS.forEach(columnDTO -> {
+            columnDTO.setBaseType(columnTypeConverter.convertType(columnDTO.getType()));
+            columnDTO.setBoxType(columnTypeConverter.convertTypeBox(columnDTO.getType()));
+        });
+        return columnDTOS;
     }
 
     @Override
@@ -150,18 +177,5 @@ public class GenerateServiceImpl implements GenerateService {
         } catch (SQLException e) {
             throw new ApiException(ResultCode.CODE_10005, String.format("sql执行失败,%s", e.getMessage()));
         }
-    }
-
-    public static void main(String[] args) throws IOException, TemplateException {
-        Configuration configuration = new Configuration(Configuration.getVersion());
-        configuration.setTemplateLoader(new SimpleStringTemplateLoader());
-        configuration.setClassicCompatible(true);
-        configuration.setDefaultEncoding("UTF-8");
-        Template template = Template.getPlainTextTemplate("name", "asdas${module}", configuration);
-        StringWriter stringWriter = new StringWriter();
-        template.process(MapUtil.builder()
-                .put("module", "123")
-                .build(), stringWriter);
-        System.out.println(stringWriter.toString());
     }
 }

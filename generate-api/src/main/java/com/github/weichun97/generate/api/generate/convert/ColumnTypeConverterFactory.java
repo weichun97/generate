@@ -1,20 +1,33 @@
 package com.github.weichun97.generate.api.generate.convert;
 
+import com.github.weichun97.generate.api.var.GenerateVar;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class ColumnTypeConverterFactory {
 
-    private static final int NULL = 0;
-    private static final int JAVA = 1;
-
     private static final Map<Integer, ColumnTypeConverter> CONTEXT = new HashMap<>();
-    static {
-        CONTEXT.put(NULL, new NullColumnTypeConverterImpl());
-        CONTEXT.put(JAVA, new JavaColumnTypeConverterImpl());
+
+    private static final ColumnTypeConverter NULL = new NullColumnTypeConverter();
+
+    /**
+     * 注册
+     *
+     * @param type 模板类型{@link GenerateVar.LangConverterType}
+     * @param columnTypeConverter
+     */
+    public static void register(Integer type, ColumnTypeConverter columnTypeConverter){
+        CONTEXT.put(type, columnTypeConverter);
     }
 
-    private static ColumnTypeConverter get(int languageFlag){
-        return CONTEXT.getOrDefault(languageFlag, CONTEXT.get(NULL));
+    /**
+     * 根据消息 id 获取消息
+     *
+     * @param type 数据库类型{@link GenerateVar.LangConverterType}
+     * @return message
+     */
+    public static ColumnTypeConverter get(Integer type){
+        return CONTEXT.getOrDefault(type, NULL);
     }
 }

@@ -1,12 +1,19 @@
 package com.github.weichun97.generate.api.generate.convert;
 
 import cn.hutool.core.map.MapUtil;
+import com.github.weichun97.generate.api.var.GenerateVar;
+import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 import static com.github.weichun97.generate.api.var.DatasourceVar.DataType.*;
 
-public class JavaColumnTypeConverterImpl implements ColumnTypeConverter {
+@Getter
+@Component
+public class JavaColumnTypeConverter implements ColumnTypeConverter {
+
+    private final int type = GenerateVar.LangConverterType.JAVA;
 
     private static final Map<String, String> JAVA_TYPE = MapUtil.<String, String>builder()
             // 数字

@@ -1,9 +1,18 @@
 package com.github.weichun97.generate.api.generate;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GenerateContext {
 
-    private List<TableDTO> tableDTOS;
-    private List<ColumnDTO> columnDTOS;
+    private TableDTO table;
+    private List<ColumnDTO> columns;
 }
