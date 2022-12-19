@@ -28,7 +28,7 @@ public class JavaColumnTypeConverter implements ColumnTypeConverter {
             .put(DECIMAL, "BigDecimal")
             // 字符串
             .put(BIT, "String")
-            .put(CHAR, "char")
+            .put(CHAR, "String")
             .put(VARCHAR, "String")
             .put(TINYBLOB, "byte[]")
             .put(TINYTEXT, "String")
@@ -60,7 +60,7 @@ public class JavaColumnTypeConverter implements ColumnTypeConverter {
             .put(DECIMAL, "BigDecimal")
             // 字符串
             .put(BIT, "String")
-            .put(CHAR, "Char")
+            .put(CHAR, "String")
             .put(VARCHAR, "String")
             .put(TINYBLOB, "Byte[]")
             .put(TINYTEXT, "String")

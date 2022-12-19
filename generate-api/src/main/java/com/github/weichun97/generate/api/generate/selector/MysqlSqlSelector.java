@@ -99,7 +99,7 @@ public class MysqlSqlSelector implements SqlSelector{
             String columnName = map.get("COLUMN_NAME").toString();
             columnDTOS.add(ColumnDTO.builder()
                     .tableName(map.get("TABLE_NAME").toString())
-                    .name(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnName))
+                    .name(columnName)
                     .nameLowerCamel(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, columnName))
                     .nameUpperCamel(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, columnName))
                     .nameLowerHyphen(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, columnName))
