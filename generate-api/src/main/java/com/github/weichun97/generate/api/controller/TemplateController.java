@@ -1,9 +1,7 @@
 package com.github.weichun97.generate.api.controller;
 
-import com.github.weichun97.generate.api.pojo.param.template.ListDetailParam;
-import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateDetailParam;
-import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateParam;
-import com.github.weichun97.generate.api.pojo.param.template.TemplateQueryParam;
+import com.github.weichun97.generate.api.pojo.param.template.*;
+import com.github.weichun97.generate.api.pojo.vo.template.CustomFieldVO;
 import com.github.weichun97.generate.api.pojo.vo.template.ListDetailVO;
 import com.github.weichun97.generate.api.pojo.vo.template.TemplateQueryVO;
 import com.github.weichun97.generate.api.service.TemplateService;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chun
@@ -61,6 +60,19 @@ public class TemplateController {
     @DeleteMapping("remove/{id}")
     public Response remove(@PathVariable Long id){
         templateService.remove(id);
+        return Response.success();
+    }
+
+    @ApiOperation("自定义字段")
+    @GetMapping("customFields/{id}")
+    public Response<List<CustomFieldVO>> customFields(@PathVariable Long id){
+        return Response.success(templateService.customFields(id));
+    }
+
+    @ApiOperation("更新自定义字段")
+    @PutMapping("updateCustomFields/{id}")
+    public Response updateCustomFields(@PathVariable Long id, @RequestBody UpdateCustomFieldsParam updateCustomFieldsParam){
+        templateService.updateCustomFields(id, updateCustomFieldsParam);
         return Response.success();
     }
 

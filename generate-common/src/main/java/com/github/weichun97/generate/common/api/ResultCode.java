@@ -22,6 +22,8 @@ public enum ResultCode implements IErrorCode {
     CODE_10004(10004, "数据源不存在"),
     CODE_10005(10005, "sql执行失败"),
     CODE_10006(10006, "模板解析异常"),
+    CODE_10007(10007, "模板不存在"),
+    CODE_10008(10008, "自定义字段格式不正确"),
     ;
     private long code;
     private String message;

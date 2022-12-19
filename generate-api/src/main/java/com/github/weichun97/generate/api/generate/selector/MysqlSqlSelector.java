@@ -56,6 +56,7 @@ public class MysqlSqlSelector implements SqlSelector{
             String tableName = JdbcUtils.removePrefix(originTableName, delPrefixs);
             tableDTOS.add(TableDTO.builder()
                     .name(originTableName)
+                    .nameLower(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, tableName).toLowerCase())
                     .nameLowerCamel(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, tableName))
                     .nameUpperCamel(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableName))
                     .nameLowerHyphen(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, tableName))

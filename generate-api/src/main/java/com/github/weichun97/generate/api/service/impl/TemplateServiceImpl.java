@@ -1,6 +1,8 @@
 package com.github.weichun97.generate.api.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.weichun97.generate.api.pojo.dao.TemplateDao;
@@ -8,15 +10,16 @@ import com.github.weichun97.generate.api.pojo.entity.TemplateDetailEntity;
 import com.github.weichun97.generate.api.pojo.entity.TemplateEntity;
 import com.github.weichun97.generate.api.pojo.mapper.TemplateDetailMapper;
 import com.github.weichun97.generate.api.pojo.mapper.TemplateMapper;
-import com.github.weichun97.generate.api.pojo.param.template.ListDetailParam;
-import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateDetailParam;
-import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateParam;
-import com.github.weichun97.generate.api.pojo.param.template.TemplateQueryParam;
+import com.github.weichun97.generate.api.pojo.param.template.*;
+import com.github.weichun97.generate.api.pojo.vo.template.CustomFieldVO;
 import com.github.weichun97.generate.api.pojo.vo.template.ListDetailVO;
 import com.github.weichun97.generate.api.pojo.vo.template.TemplateQueryVO;
 import com.github.weichun97.generate.api.service.TemplateDetailService;
 import com.github.weichun97.generate.api.service.TemplateService;
+import com.github.weichun97.generate.common.api.ResultCode;
 import com.github.weichun97.generate.common.api.SelectVO;
+import com.github.weichun97.generate.common.exception.ApiException;
+import com.github.weichun97.generate.common.exception.BizAssert;
 import com.github.weichun97.generate.common.mybatis.GeneratePage;
 import com.github.weichun97.generate.common.mybatis.GeneratePageParam;
 import org.springframework.stereotype.Service;
@@ -90,5 +93,28 @@ public class TemplateServiceImpl extends ServiceImpl<TemplateDao, TemplateEntity
                 .select(TemplateEntity::getId, TemplateEntity::getName)
         );
         return CollUtil.isEmpty(templateEntities) ? Collections.emptyList() : mapper.poToSelectVo(templateEntities);
+    }
+
+    @Override
+    public List<CustomFieldVO> customFields(Long id) {
+        TemplateEntity templateEntity = getById(id);
+        BizAssert.assertNotNull(templateEntity, ResultCode.CODE_10007);
+        String customField = templateEntity.getCustomField();
+        return StrUtil.isBlank(customField) ? Collections.emptyList() : JSONUtil.toList(customField, CustomFieldVO.class);
+    }
+
+    @Override
+    public void updateCustomFields(Long id, UpdateCustomFieldsParam updateCustomFieldsParam) {
+        if(StrUtil.isNotBlank(updateCustomFieldsParam.getCustomField())){
+            try {
+                JSONUtil.toList(updateCustomFieldsParam.getCustomField(), CustomFieldVO.class);
+            } catch (Exception e) {
+                throw new ApiException(ResultCode.CODE_10008);
+            }
+        }
+        update(TemplateEntity.builder()
+                .customField(updateCustomFieldsParam.getCustomField())
+                .build(), new LambdaQueryWrapper<TemplateEntity>()
+                .eq(TemplateEntity::getId, id));
     }
 }

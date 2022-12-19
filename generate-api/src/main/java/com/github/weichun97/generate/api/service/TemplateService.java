@@ -3,10 +3,8 @@ package com.github.weichun97.generate.api.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.weichun97.generate.api.pojo.entity.TemplateDetailEntity;
 import com.github.weichun97.generate.api.pojo.entity.TemplateEntity;
-import com.github.weichun97.generate.api.pojo.param.template.ListDetailParam;
-import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateDetailParam;
-import com.github.weichun97.generate.api.pojo.param.template.SaveOrUpdateParam;
-import com.github.weichun97.generate.api.pojo.param.template.TemplateQueryParam;
+import com.github.weichun97.generate.api.pojo.param.template.*;
+import com.github.weichun97.generate.api.pojo.vo.template.CustomFieldVO;
 import com.github.weichun97.generate.api.pojo.vo.template.ListDetailVO;
 import com.github.weichun97.generate.api.pojo.vo.template.TemplateQueryVO;
 import com.github.weichun97.generate.common.api.SelectVO;
@@ -14,6 +12,7 @@ import com.github.weichun97.generate.common.mybatis.GeneratePage;
 import com.github.weichun97.generate.common.mybatis.GeneratePageParam;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TemplateService extends IService<TemplateEntity> {
 
@@ -75,4 +74,18 @@ public interface TemplateService extends IService<TemplateEntity> {
      * @return
      */
     List<SelectVO> select();
+
+    /**
+     * 自定义变量
+     * @param id
+     * @return
+     */
+    List<CustomFieldVO> customFields(Long id);
+
+    /**
+     * 更新自定义变量
+     * @param id
+     * @param updateCustomFieldsParam
+     */
+    void updateCustomFields(Long id, UpdateCustomFieldsParam updateCustomFieldsParam);
 }

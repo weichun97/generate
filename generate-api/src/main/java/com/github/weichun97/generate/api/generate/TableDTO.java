@@ -18,6 +18,11 @@ public class TableDTO {
     private String name;
 
     /**
+     * 表名-全小写
+     */
+    private String nameLower;
+
+    /**
      * 表名-小驼峰
      */
     private String nameLowerCamel;
@@ -43,7 +48,7 @@ public class TableDTO {
     private String nameUpperUnderscore;
 
     /**
-     * 表评论
+     * 表备注
      */
     private String comment;
 }
