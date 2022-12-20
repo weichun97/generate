@@ -23,9 +23,14 @@ public class TemplateEntity {
   private Long id;
 
   /**
-   * 姓名
+   * 模板组名
    */
   private String name;
+
+  /**
+   * 基础文件夹
+   */
+  private String baseDir;
 
   /**
    * 自定义字段
