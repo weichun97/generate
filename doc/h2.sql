@@ -1,19 +1,22 @@
 DROP TABLE IF EXISTS TL_TEMPLATE;
 create table TL_TEMPLATE
 (
-    ID          BIGINT auto_increment
+    ID           BIGINT auto_increment
         primary key,
-    NAME        VARCHAR(20)              not null,
-    CREATE_TIME TIMESTAMP WITH TIME ZONE not null,
-    UPDATE_TIME TIMESTAMP WITH TIME ZONE,
-    DELETE_TIME TIMESTAMP WITH TIME ZONE
+    NAME         VARCHAR(20)              not null,
+    CREATE_TIME  TIMESTAMP WITH TIME ZONE not null,
+    UPDATE_TIME  TIMESTAMP WITH TIME ZONE,
+    DELETE_TIME  TIMESTAMP WITH TIME ZONE,
+    CUSTOM_FIELD CLOB,
+    BASE_DIR     VARCHAR(100)
 );
 comment on table TL_TEMPLATE is '模板组';
-comment on column TL_TEMPLATE.ID is 'id';
 comment on column TL_TEMPLATE.NAME is '名称';
 comment on column TL_TEMPLATE.CREATE_TIME is '创建时间';
 comment on column TL_TEMPLATE.UPDATE_TIME is '更新时间';
 comment on column TL_TEMPLATE.DELETE_TIME is '删除时间';
+comment on column TL_TEMPLATE.CUSTOM_FIELD is '自定义字段';
+comment on column TL_TEMPLATE.BASE_DIR is '基础文件夹';
 
 DROP TABLE IF EXISTS TL_TEMPLATE_DETAIL;
 create table TL_TEMPLATE_DETAIL

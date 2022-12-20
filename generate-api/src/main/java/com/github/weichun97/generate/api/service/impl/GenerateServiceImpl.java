@@ -38,6 +38,7 @@ import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import one.util.streamex.StreamEx;
 import org.apache.ibatis.jdbc.SqlRunner;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -81,7 +82,9 @@ public class GenerateServiceImpl implements GenerateService {
             List<TemplateDetailEntity> templateDetailEntities = templateDetailService.list(new LambdaQueryWrapper<TemplateDetailEntity>()
                     .in(TemplateDetailEntity::getId, generateParam.getTemplateIds())
             );
-            Map<String, String> customField = getCustomField(templateDetailEntities.get(0).getTemplateId());
+            TemplateEntity templateEntity = templateService.getById(templateDetailEntities.get(0).getTemplateId());
+            BizAssert.assertNotNull(templateEntity, ResultCode.CODE_10007);
+            Map<String, String> customField = getCustomField(templateEntity);
 
             // 生成
             List<GenerateVO> rootGenerateVOS = CollUtil.newArrayList();
@@ -89,11 +92,14 @@ public class GenerateServiceImpl implements GenerateService {
             for (TemplateDetailEntity templateDetailEntity : templateDetailEntities) {
                 TemplateParser templateParser = TemplateParserFactory.get(GenerateVar.TemplateType.FREEMARK);
                 ColumnTypeConverter columnTypeConverter = ColumnTypeConverterFactory.get(GenerateVar.LangConverterType.JAVA);
+                String templateDetailDir = templateDetailEntity.getDir();
                 for (TableDTO tableDTO : tableDTOS) {
                     // 构建模板变量
                     GenerateContext generateContext = GenerateContext.builder()
                             .custom(customField)
                             .base(BaseDTO.builder()
+                                    .baseDir(templateEntity.getBaseDir())
+                                    .basePackageName(templateEntity.getBaseDir() != null ? templateEntity.getBaseDir().replaceAll("/", ".") : null)
                                     .date(DateUtil.formatDate(now))
                                     .time(DateUtil.formatTime(now))
                                     .datetime(DateUtil.formatDateTime(now))
@@ -103,7 +109,7 @@ public class GenerateServiceImpl implements GenerateService {
                             .build();
 
                     // 转义目录后放置在模板变量里
-                    templateDetailEntity.setDir(templateParser.parse(generateContext, templateDetailEntity.getDir()));
+                    templateDetailEntity.setDir(templateParser.parse(generateContext, templateDetailDir));
                     generateContext.getBase().setDir(templateDetailEntity.getDir());
                     generateContext.getBase().setPackageName(templateDetailEntity.getDir().replaceAll("/", "."));
 
@@ -123,9 +129,7 @@ public class GenerateServiceImpl implements GenerateService {
         }
     }
 
-    private Map<String, String> getCustomField(Long templateId) {
-        TemplateEntity templateEntity = templateService.getById(templateId);
-        BizAssert.assertNotNull(templateEntity, ResultCode.CODE_10007);
+    private Map<String, String> getCustomField(@NonNull TemplateEntity templateEntity) {
         if(StrUtil.isBlank(templateEntity.getCustomField())){
             return Collections.emptyMap();
         }

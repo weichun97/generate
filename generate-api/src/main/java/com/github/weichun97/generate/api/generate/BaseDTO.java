@@ -12,12 +12,22 @@ import lombok.NoArgsConstructor;
 public class BaseDTO {
 
     /**
+     * 基础目录
+     */
+    private String baseDir;
+
+    /**
      * 目录
      */
     private String dir;
 
     /**
-     * 包名-根据目录转换
+     * 包名-基础目录转换成包
+     */
+    private String basePackageName;
+
+    /**
+     * 包名-根据目录转换成包
      */
     private String packageName;
 
