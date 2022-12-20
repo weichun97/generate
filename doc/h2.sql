@@ -26,7 +26,7 @@ create table TL_TEMPLATE_DETAIL
     NAME        VARCHAR(100)             not null,
     CONTENT     CLOB                     not null,
     FILE_NAME   VARCHAR(100)             not null,
-    DIR         VARCHAR(20),
+    DIR         VARCHAR(200),
     TEMPLATE_ID BIGINT                   not null,
     DELETE_TIME TIMESTAMP WITH TIME ZONE,
     CREATE_TIME TIMESTAMP WITH TIME ZONE not null,
