@@ -1,0 +1,136 @@
+{
+    "1": 
+    [
+      {
+        "expression": "自定义字段",
+        "text": "",
+        "children": []
+      },
+      {
+        "expression": "基础信息",
+        "text": "",
+        "children": [
+          {
+            "expression": "${base.baseDir}",
+            "text": "根目录"
+          },
+          {
+            "expression": "${base.basePackageName}",
+            "text": "根包名"
+          },
+          {
+            "expression": "${base.dir}",
+            "text": "目录"
+          },
+          {
+            "expression": "${base.packageName}",
+            "text": "包名"
+          },
+          {
+            "expression": "${base.date}",
+            "text": "日期"
+          },
+          {
+            "expression": "${base.time}",
+            "text": "时间"
+          },
+          {
+            "expression": "${base.datetime}",
+            "text": "日期+时间"
+          }
+        ]
+      },
+      {
+        "expression": "表信息",
+        "text": "",
+        "children": [
+          {
+            "expression": "${table.name}",
+            "text": "表名"
+          },
+          {
+            "expression": "${table.nameLower}",
+            "text": "表名-全小写"
+          },
+          {
+            "expression": "${table.nameLowerCamel}",
+            "text": "表名-小驼峰"
+          },
+          {
+            "expression": "${table.nameUpperCamel}",
+            "text": "表名-大驼峰"
+          },
+          {
+            "expression": "${table.nameLowerHyphen}",
+            "text": "表名-小写中划线"
+          },
+          {
+            "expression": "${table.nameLowerUnderscore}",
+            "text": "表名-小写下划线"
+          },
+          {
+            "expression": "${table.nameUpperUnderscore}",
+            "text": "表名-大写下划线"
+          },
+          {
+            "expression": "${table.comment}",
+            "text": "表备注"
+          }
+        ]
+      },
+      {
+        "expression": "字段信息 <#list columns as column> </#list>",
+        "text": "",
+        "children": [
+          {
+            "expression": "${column.name}",
+            "text": "字段名"
+          },
+          {
+            "expression": "${column.nameLowerCamel}",
+            "text": "字段名-小驼峰"
+          },
+          {
+            "expression": "${column.nameUpperCamel}",
+            "text": "字段名-大驼峰"
+          },
+          {
+            "expression": "${column.nameLowerHyphen}",
+            "text": "字段名-小写中划线"
+          },
+          {
+            "expression": "${column.nameLowerUnderscore}",
+            "text": "字段名-小写下划线"
+          },
+          {
+            "expression": "${column.nameUpperUnderscore}",
+            "text": "字段名-大写下划线"
+          },
+          {
+            "expression": "${column.comment}",
+            "text": "备注"
+          },
+          {
+            "expression": "${column.type}",
+            "text": "数据库类型"
+          },
+          {
+            "expression": "${column.baseType}",
+            "text": "基础类型"
+          },
+          {
+            "expression": "${column.boxType}",
+            "text": "包装类型"
+          },
+          {
+            "expression": "${column.primaryFlag}",
+            "text": "是否主键"
+          },
+          {
+            "expression": "${column.autoFlag}",
+            "text": "是否自增"
+          }
+        ]
+      }
+    ]
+}
