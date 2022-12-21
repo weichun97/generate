@@ -2,7 +2,17 @@ spring:
   application:
     name: generate-test
   datasource:
-    url: jdbc:h2:~/chun_generate;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+    # ----------------------------------------------
+    # H2
+    # ----------------------------------------------
+#    url: jdbc:h2:~/chun_generate;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+#    username: root
+#    password: root
+#    driverClassName: org.h2.Driver
+    # ----------------------------------------------
+    # mysql
+    # ----------------------------------------------
+    url: jdbc:mysql://localhost:3306/chun_generate?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root
-    driverClassName: org.h2.Driver
+    driverClassName: com.mysql.jdbc.Driver
