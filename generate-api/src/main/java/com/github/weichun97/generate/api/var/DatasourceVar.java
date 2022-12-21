@@ -61,7 +61,7 @@ public interface DatasourceVar {
                 ;
 
         Map<Integer, String> JDBC_URL = MapUtil.<Integer, String>builder()
-                .put(MYSQL, "jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai")
+                .put(MYSQL, "jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false")
                 .build()
                 ;
 
