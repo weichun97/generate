@@ -21,6 +21,9 @@ public class TemplateQueryVO {
     @ApiModelProperty(value = "根目录", example = "com/itran/fgoc/server")
     private String baseDir;
 
+    @ApiModelProperty(value = "备注", example = "")
+    private String remark;
+
     @JsonFormat(pattern = DatePattern.NORM_DATETIME_MINUTE_PATTERN)
     @ApiModelProperty(value = "创建时间", example = "2022-01-01")
     private Date createTime;

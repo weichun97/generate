@@ -18,4 +18,7 @@ public class SaveOrUpdateParam {
     @Pattern(regexp = "^([a-zA-Z_]+[a-zA-Z0-9_]*[a-zA-Z_]*)*(/?[a-zA-Z_]+[a-zA-Z0-9_]*[a-zA-Z_]*)+$", message = "根目录格式不正确")
     @ApiModelProperty(value = "根目录", example = "mapper")
     private String baseDir;
+
+    @ApiModelProperty(value = "备注", example = "")
+    private String remark;
 }
