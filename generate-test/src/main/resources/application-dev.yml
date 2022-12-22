@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: generate-test
+  datasource:
+    # ----------------------------------------------
+    # H2
+    # ----------------------------------------------
+#    url: jdbc:h2:~/chun_generate;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
+#    username: root
+#    password: root
+#    driverClassName: org.h2.Driver
+    # ----------------------------------------------
+    # mysql
+    # ----------------------------------------------
+    url: jdbc:mysql://mysql.fgoc.com:3306/chun_generate?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: fgoc-cnshe
+    driverClassName: com.mysql.jdbc.Driver
